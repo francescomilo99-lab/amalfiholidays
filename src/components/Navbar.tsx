@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Instagram } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Navbar() {
@@ -26,7 +26,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0 flex items-center">
+            <Link to="/" className="flex-shrink-0 flex items-center space-x-3">
+              <img src="/logo.png?v=20260312" alt="Amalfi Holidays Logo" className="h-12 w-auto" />
               <span className="text-2xl font-serif text-[#003B5C] font-bold tracking-wider">Amalfi Holidays</span>
             </Link>
           </div>
@@ -42,6 +43,15 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+            <a
+              href="https://www.instagram.com/amalfi_holidays/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-700 hover:text-[#E1306C] transition-colors"
+              aria-label="Instagram"
+            >
+              <Instagram className="w-5 h-5" />
+            </a>
             <button
               onClick={toggleLanguage}
               className="flex items-center text-gray-700 hover:text-[#003B5C] transition-colors"
@@ -87,6 +97,16 @@ export default function Navbar() {
               <Globe className="w-5 h-5 mr-2" />
               {i18n.language === 'it' ? 'English' : 'Italiano'}
             </button>
+            <a
+              href="https://www.instagram.com/amalfi_holidays/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center w-full px-3 py-2 text-base font-medium text-gray-700 hover:text-[#E1306C] hover:bg-gray-50 uppercase tracking-wider"
+              onClick={() => setIsOpen(false)}
+            >
+              <Instagram className="w-5 h-5 mr-2" />
+              Instagram
+            </a>
           </div>
         </div>
       )}

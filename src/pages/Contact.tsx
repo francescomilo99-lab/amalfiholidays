@@ -1,9 +1,22 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 
 export default function Contact() {
   const { t } = useTranslation();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subject = `Nuovo messaggio dal sito web da: ${formData.name}`;
+    const body = `Nome: ${formData.name}\nEmail: ${formData.email}\n\nMessaggio:\n${formData.message}`;
+    window.location.href = `mailto:info@amalfiholidays.it?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
 
   return (
     <motion.div
@@ -29,7 +42,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-1 uppercase tracking-wider">Indirizzo</h3>
-                  <p className="text-gray-600 font-light">Via Roma 123<br />84011 Amalfi (SA)<br />Italia</p>
+                  <p className="text-gray-600 font-light">Via Giovanni Augustariccio 50<br />84011 Amalfi (SA)<br />Italia</p>
                 </div>
               </div>
               
@@ -39,7 +52,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-1 uppercase tracking-wider">Telefono</h3>
-                  <p className="text-gray-600 font-light">+39 333 1234567</p>
+                  <p className="text-gray-600 font-light">+39 338 482 8132</p>
                 </div>
               </div>
               
@@ -49,7 +62,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-1 uppercase tracking-wider">Email</h3>
-                  <a href="mailto:info@amalfiholidays.com" className="text-[#F2A900] hover:text-[#003B5C] transition-colors font-medium">info@amalfiholidays.com</a>
+                  <a href="mailto:info@amalfiholidays.it" className="text-[#F2A900] hover:text-[#003B5C] transition-colors font-medium">info@amalfiholidays.it</a>
                 </div>
               </div>
             </div>
@@ -57,7 +70,7 @@ export default function Contact() {
             <div className="mt-12 pt-12 border-t border-gray-100">
               <h3 className="text-xl font-serif font-bold text-[#003B5C] mb-6">Contattaci Subito</h3>
               <a
-                href="https://wa.me/393331234567"
+                href="https://wa.me/393384828132"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center bg-[#25D366] text-white py-4 rounded-xl font-semibold uppercase tracking-wider hover:bg-[#128C7E] transition-colors shadow-md"
@@ -71,12 +84,15 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="bg-white p-12 rounded-3xl shadow-sm border border-gray-100">
             <h2 className="text-3xl font-serif font-bold text-[#003B5C] mb-8">Inviaci un Messaggio</h2>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 uppercase tracking-wider mb-2">{t('contact.name')}</label>
                 <input
                   type="text"
                   id="name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#003B5C] focus:border-transparent transition-shadow bg-gray-50"
                   placeholder="Il tuo nome"
                 />
@@ -86,6 +102,9 @@ export default function Contact() {
                 <input
                   type="email"
                   id="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#003B5C] focus:border-transparent transition-shadow bg-gray-50"
                   placeholder="La tua email"
                 />
@@ -95,6 +114,9 @@ export default function Contact() {
                 <textarea
                   id="message"
                   rows={6}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  required
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#003B5C] focus:border-transparent transition-shadow bg-gray-50 resize-none"
                   placeholder="Come possiamo aiutarti?"
                 ></textarea>

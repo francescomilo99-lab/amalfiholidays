@@ -5,7 +5,7 @@ export default function WhatsAppButton() {
   const { t } = useTranslation();
   
   // Replace with actual WhatsApp number
-  const phoneNumber = "393331234567";
+  const phoneNumber = "393384828132";
   const message = "Salve, vorrei avere maggiori informazioni sulle vostre proprietà e servizi.";
   
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
